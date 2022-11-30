@@ -5,6 +5,7 @@ namespace App\Http\Controllers\API;
 use App\Http\Controllers\Controller;
 use App\Models\Klub;
 use Illuminate\Http\Request;
+use App\Http\Resources\KlubResource;
 
 class KlubController extends Controller
 {
@@ -15,8 +16,10 @@ class KlubController extends Controller
      */
     public function index()
     {
-        //
+        $klubovi = Klub::all();
+        return KlubResource::collection($klubovi);
     }
+
 
     /**
      * Show the form for creating a new resource.
@@ -79,8 +82,15 @@ class KlubController extends Controller
      * @param  \App\Models\Klub  $klub
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Klub $klub)
+    public function destroy($id)
     {
-        //
+        $klub = Klub::find($id);
+        if ($klub) {
+            $klub->delete();
+            return response()->json(['Klub je obrisan!', new KlubResource($klub)]);
+        } else {
+            return response()->json('Klub sa traženim id-em ne postoji u bazi podataka!');
+        }
     }
+
 }
