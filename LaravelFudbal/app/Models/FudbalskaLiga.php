@@ -10,6 +10,13 @@ class FudbalskaLiga extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'naziv',
+        'website',
+        'nivo',
+        'drzava'
+    ];
+
     public function klubovi(){
         return $this->hasMany(Klub::class);
     }

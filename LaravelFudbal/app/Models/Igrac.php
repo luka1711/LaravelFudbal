@@ -10,6 +10,14 @@ class Igrac extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'ime',
+        'prezime',
+        'email',
+	    'broj_na_dresu',
+        'klub_id'
+    ];
+
     public function klub(){
         return $this->belongsTo(Klub::class);
     }
